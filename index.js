@@ -1,6 +1,6 @@
 const request = require('request');
 
-async function pingLink () {
+async function pingLink (params) {
 	const urls = [params.url];
 	requests = url.map((url) => {
 		return new Promise((resolve, reject) => {
