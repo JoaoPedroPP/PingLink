@@ -1,6 +1,6 @@
 {
   "name": "pinglink",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A funny way to ping links",
   "main": "index.js",
   "scripts": {
