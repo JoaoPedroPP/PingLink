@@ -1,24 +1,22 @@
 const request = require('request');
-
-async function pingLink (params) {
-	const urls = [params.url];
-	requests = urls.map((url) => {
-		return new Promise((resolve, reject) => {
-			const option = {
-				url: url,
-				method: 'GET',
-				json: true
-			};
-			request(option, (err, resp) => {
-				if (err) reject(err);
-				else if (resp.statusCode == 200) resolve({msg: 'It\'s alive!'});
-				else reject({msg: 'It\'s not alive :('});
-			});
-		});
-	});
-	pings = Promise.all(requests);
-	const ret = pings.filter(data => data.msg == 'It\'s alive!');
-	return ret;
+async function pingLink(params) {
+    if (params.err) return params;
+    else if (params.test) return params;
+    else {
+        let hosts = [params.url];
+        let promise = hosts.map((host, i) => {
+            return new Promise((resolve, reject) => {
+                request.get(host, (err, resp, body) => {
+					if (err) resolve(false);
+                    else if (resp.statusCode == 200) resolve(true);
+                    else resolve(false);
+                })
+            })
+        })
+		response = await Promise.all(promise);
+        params.status = response.filter(value => value == true).length > 0 ? 'This URL is ALIVE, ALIVE !!': 'This URL is dead';
+        return params;
+    }
 }
 
 module.exports = pingLink;
